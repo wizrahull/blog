@@ -1,0 +1,41 @@
+
+
+ <section class="section" id="blog">
+        <div class="container">
+            <h2 class="mb-5">Latest <span class="text-danger">Post</span></h2>
+            <div class="row">
+                <div class="blog-card">
+                    <div class="img-holder">
+            <% @posts.each do |post| %>
+                
+                  <h1 class="img-holder">
+                    <%= image_tag post.image %></h1>
+            
+                  
+                    <div class="content-holder">
+
+                        <h6 class="title"><%=link_to post.title ,post%></h6>
+
+                        <p class="post-details">
+                            <a href="#">By: Admin</a>
+                            <a href="#"><i class="ti-heart text-danger"></i> 234</a>
+                            <a href="#"><i class="ti-comment"></i> 123</a>
+                        </p>
+                        
+                        <p><%= post.main%></p>
+
+                        <a href="#" class="read-more">Read more <i class="ti-angle-double-right"></i></a>
+                        <br>
+                        <%end%>
+                    </div>
+                </div>
+               
+              
+
+            </div>
+        </div>
+         <% if admin_signed_in?%>
+                
+               <%= link_to "New post", new_post_path %>
+               <%end%>
+    </section>
