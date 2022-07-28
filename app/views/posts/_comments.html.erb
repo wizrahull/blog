@@ -1,0 +1,21 @@
+<p style="color: green"><%= notice %></p>
+
+<h1 style="color: danger;  margin-left:7%;">Comments</h1><br>
+<%= link_to "New comment", new_post_comment_path(@post) ,style:"margin-left:10%;",id:"destroy_button"%>
+<br><br>
+<div id="comments_partial">
+
+  <% @comments.each do |comment| %>
+    <%= comment.remark %><%x=comment.admin_id%>
+    <br>
+    <%=Admin.find(x).email%>
+
+    <p>
+      <%= link_to "Show this comment", comment %>
+
+    </p>
+    <hr>
+  <% end %>
+</div>
+
+
