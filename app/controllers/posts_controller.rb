@@ -1,6 +1,6 @@
 class PostsController < ApplicationController
-  before_action :set_post, only: %i[ show edit update  ]
-  before_action :authenticate_user! , only: %i[create destroy]
+  before_action :authenticate_user! , only: %i[create destroy update edit]
+  before_action :set_post, only: %i[ show  destroy ]
 
   # GET /posts or /posts.json
   def index
@@ -11,6 +11,8 @@ class PostsController < ApplicationController
 
   # GET /posts/1 or /posts/1.json
   def show
+     @comments = @post.comments.all
+     
   end
 
   # GET /posts/new
@@ -52,7 +54,6 @@ class PostsController < ApplicationController
 
   # DELETE /posts/1 or /posts/1.json
   def destroy
-    @post=Post.find(params[:id])
     @post.destroy
 
     respond_to do |format|
@@ -65,10 +66,12 @@ class PostsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_post
       @post = Post.find(params[:id])
+     
     end
 
     # Only allow a list of trusted parameters through.
     def post_params
+      
       params.require(:post).permit(:title, :image, :main, :admin_id)
     end
 end

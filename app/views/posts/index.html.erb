@@ -1,4 +1,4 @@
-
+<%= render "head"%>
 
  <section class="section" id="blog">
         <div class="container">
@@ -8,8 +8,8 @@
                     <div class="img-holder">
             <% @posts.each do |post| %>
                 
-                  <h1 class="img-holder">
-                    <%= image_tag post.image %></h1>
+                  <h1 class="index_image">
+                    <%= image_tag post.image%></h1>
             
                   
                     <div class="content-holder">
@@ -17,16 +17,19 @@
                         <h6 class="title"><%=link_to post.title ,post%></h6>
 
                         <p class="post-details">
-                            <a href="#">By: Admin</a>
-                            <a href="#"><i class="ti-heart text-danger"></i> 234</a>
-                            <a href="#"><i class="ti-comment"></i> 123</a>
+                         <%x=post.admin_id%> 
+                         <%c=Admin.find(x)%>
+                            <a href="#">By: <%=c.email%>  || Likes: </a>
+                            
                         </p>
                         
-                        <p><%= post.main%></p>
+                        <p><%= post.main.truncate(50)%></p>
 
-                        <a href="#" class="read-more">Read more <i class="ti-angle-double-right"></i></a>
+                       <%=link_to "Read more" ,post%>
+                       <hr>
                         <br>
                         <%end%>
+                        
                     </div>
                 </div>
                
@@ -34,8 +37,9 @@
 
             </div>
         </div>
-         <% if admin_signed_in?%>
-                
-               <%= link_to "New post", new_post_path %>
-               <%end%>
+         
     </section>
+    <% if admin_signed_in?%>
+                <div class="button_link">
+               <%= link_to "New post", new_post_path , id:"destroy_button",style:"margin-left:40%;"%></div>
+               <%end%>

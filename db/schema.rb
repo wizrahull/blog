@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_07_24_114026) do
+ActiveRecord::Schema[7.0].define(version: 2022_07_27_100106) do
   create_table "active_storage_attachments", charset: "utf8mb4", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -51,6 +51,16 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_24_114026) do
     t.index ["reset_password_token"], name: "index_admins_on_reset_password_token", unique: true
   end
 
+  create_table "comments", charset: "utf8mb4", force: :cascade do |t|
+    t.string "remark"
+    t.bigint "post_id", null: false
+    t.bigint "admin_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["admin_id"], name: "index_comments_on_admin_id"
+    t.index ["post_id"], name: "index_comments_on_post_id"
+  end
+
   create_table "posts", charset: "utf8mb4", force: :cascade do |t|
     t.string "title"
     t.text "main"
@@ -62,5 +72,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_24_114026) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "comments", "admins"
+  add_foreign_key "comments", "posts"
   add_foreign_key "posts", "admins"
 end

@@ -1,8 +1,21 @@
 Rails.application.routes.draw do
-  resources :posts
+  
+  resources :comments
+  resources :posts do 
+    resources :comments
+  end
+
   devise_for :admins
   root to: "posts#index"
-  # resources :admin
+
+
+  
+  # # resources :admin
+  # resources :admins do
+  #   resources :posts
+  # end
+
+
   
   
 

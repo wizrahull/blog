@@ -1,3 +1,4 @@
+
 <%= form_with(model: post) do |form| %>
   <% if post.errors.any? %>
     <div style="color: red">
@@ -10,30 +11,42 @@
       </ul>
     </div>
   <% end %>
+ 
 
-  <div>
-    <%= form.label :title, style: "display: block" %>
-    <%= form.text_field :title %>
+ <div class="form_align" >
+  
+  <div >
+  
+    <%# <%= form.label :title, style: "display: block" %> 
+    <%= form.text_field :title ,placeholder: "Title", id:"new_form_title"%>
   </div>
 
+<hr>
   <div>
-    <%= form.label :image, style: "display: block" %>
-    <%= form.file_field :image %>
-  </div>
-
-  <div>
-    <%= form.label :main, style: "display: block" %>
-    <%= form.text_area :main %>
-  </div>
-
-  <div>
-    <%=form.label :admin_id, style: "display: block" %>
+        IMAGE: <p id="form_image_upload"><%= form.file_field :image %></p>
+    <%# <%= form.label :image, style: "display: block" ,id:"new_form_image" %> 
     
-    <%= form.text_field :admin_id %>
+  </div>
+
+  <div>
+    <%# <%= form.label :main, style: "display: block" %>
+    <%= form.text_area :main  , placeholder: "Content" ,id:"new_form_content" %>
+  </div>
+
+  <div id="admin_id_form" >
+   <%if admin_signed_in?%>
+     <% x=current_admin.id%>
+    <p style="margin-left:2%;"> Current Admin ID:  <%= form.text_field :admin_id ,value: x%></p>
+    <%end%>
+    
+   
     
   </div>
 
   <div>
     <%= form.submit %>
+  </div>
+
+
   </div>
 <% end %>
