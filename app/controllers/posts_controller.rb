@@ -2,10 +2,11 @@ class PostsController < ApplicationController
   before_action :authenticate_user! , only: %i[create destroy update edit]
   before_action :set_post, only: %i[ show  destroy ]
 
+
   # GET /posts or /posts.json
   def index
     @posts = Post.all
-    
+    @current_weather = Accuweather.get_conditions(location_id: 'cityId:53286').current
     
   end
 
